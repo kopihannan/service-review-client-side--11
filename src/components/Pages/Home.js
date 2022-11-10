@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css'
+import Service from './Service';
 
 const Home = () => {
     return (
@@ -63,6 +64,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <Service></Service>
         </div>
     );
 };
