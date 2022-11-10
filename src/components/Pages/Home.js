@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import About from './About';
 import './Home.css'
+import Meet from './Meet';
 import Service from './Service';
 
 const Home = () => {
@@ -67,6 +68,7 @@ const Home = () => {
             </div>
             <About></About>
             <Service></Service>
+            <Meet></Meet>
         </div>
     );
 };
