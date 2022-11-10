@@ -16,6 +16,7 @@ const Header = () => {
                         <Link className='font-semibold mr-7 hover:text-lime-600'>About Us</Link>
                         <Link className='font-semibold mr-7 hover:text-lime-600'>Contact</Link>
                         <Link className='font-semibold mr-7 hover:text-lime-600'>Package</Link>
+                        <Link to='/blog' className='font-semibold mr-7 hover:text-lime-600'>Blog</Link>
                     </ul>
                 </div>
                 <div className='flex items-center'>
@@ -30,6 +31,7 @@ const Header = () => {
                     <Link className='font-semibold mr-7 hover:text-lime-600'>About Us</Link>
                     <Link className='font-semibold mr-7 hover:text-lime-600'>Contact</Link>
                     <Link className='font-semibold mr-7 hover:text-lime-600'>Package</Link>
+                    <Link to='/blog' className='font-semibold mr-7 hover:text-lime-600'>Blog</Link>
                 </ul>
             </div>
             <div className="navbar-end">
