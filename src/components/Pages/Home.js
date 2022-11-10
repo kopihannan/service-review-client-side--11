@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import About from './About';
 import './Home.css'
 import Service from './Service';
 
@@ -64,6 +65,7 @@ const Home = () => {
                     </div>
                 </div>
             </div>
+            <About></About>
             <Service></Service>
         </div>
     );
