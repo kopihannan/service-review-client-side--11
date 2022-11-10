@@ -5,14 +5,16 @@ import Details from "../components/Pages/Details";
 import Home from "../components/Pages/Home";
 import Login from "../components/Pages/Login";
 import Service from "../components/Pages/Service";
+import SignUp from "../components/Pages/SignUp";
 
 const router = createBrowserRouter([{
     path: '/', element: <Main></Main>,
     children: [
         { path: '/', element: <Home></Home> },
-        {path: '/login', element: <Login></Login>},
+        { path: '/login', element: <Login></Login> },
         { path: '/service', element: <Service></Service> },
         { path: '/blog', element: <Blog></Blog> },
+        { path: '/signup', element: <SignUp></SignUp> },
         {
             path: '/service/:id', element: <Details></Details>,
             loader: async ({ params }) => {
