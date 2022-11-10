@@ -55,11 +55,11 @@ const Login = () => {
                                 </label>
                                 <input name='password' type="password" placeholder="password" className="input input-bordered" />
                             </div>
-                            <div>
-                                <p>Create an Account <Link to='/signup'>Register</Link></p>
-                            </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Login</button>
+                            </div>
+                            <div>
+                                <small className='text-red-400'>Create an Account? <Link to='/signup'>Register</Link></small>
                             </div>
                         </form>
                         <div className="form-control mt-6">

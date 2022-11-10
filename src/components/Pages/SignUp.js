@@ -1,7 +1,7 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { FaGoogle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const provider = new GoogleAuthProvider();
@@ -65,6 +65,9 @@ const SignUp = () => {
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Signup</button>
+                            </div>
+                            <div>
+                                <small className='text-green-400'>Have an Account? <Link to='/login'>Signin</Link></small>
                             </div>
                         </form>
                         <div className="form-control mt-6">
