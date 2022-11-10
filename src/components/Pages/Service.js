@@ -13,7 +13,7 @@ const Service = () => {
     }
 
     useEffect(() => {
-        const url = 'http://localhost:5000/service?size='+limit;
+        const url = 'https://server-vromon.vercel.app/service?size='+limit;
         fetch(url)
             .then(res => res.json())
             .then(data => {

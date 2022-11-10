@@ -18,7 +18,7 @@ const router = createBrowserRouter([{
         {
             path: '/service/:id', element: <Details></Details>,
             loader: async ({ params }) => {
-                return fetch(`http://localhost:5000/service/${params.id}`);
+                return fetch(`https://server-vromon.vercel.app/service/${params.id}`);
             },
         },
 
