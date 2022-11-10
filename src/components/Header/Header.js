@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Header = () => {
+
+    const { user, logOutUser} = useContext(AuthContext);
+
+    const handleLogOut =()=>{
+        logOutUser()
+        .then()
+        .catch()
+    }
+
     return (
         <div className="navbar bg-base-100 py-6 max-w-screen-xl mx-auto">
             <div className="navbar-start">
@@ -20,7 +30,7 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className='flex items-center'>
-                    <img className='w-10 mr-3' src={logo} alt=""/>
+                    <img className='w-10 mr-3' src={logo} alt="" />
                     <Link to='/' className="text-3xl font-bold font-serif">VROMON</Link>
                 </div>
             </div>
@@ -29,14 +39,14 @@ const Header = () => {
                     <Link to='/' className='font-semibold mr-7 hover:text-lime-600'>Home</Link>
                     <Link to='/service' className='font-semibold mr-7 hover:text-lime-600'>Services</Link>
                     <Link className='font-semibold mr-7 hover:text-lime-600'>About Us</Link>
-                    <Link className='font-semibold mr-7 hover:text-lime-600'>Contact</Link>
-                    <Link className='font-semibold mr-7 hover:text-lime-600'>Package</Link>
                     <Link to='/blog' className='font-semibold mr-7 hover:text-lime-600'>Blog</Link>
                 </ul>
             </div>
             <div className="navbar-end">
-                <Link className="font-semibold" to='/login'>Login</Link>
-                <Link className="font-semibold" to='/signup'>Signup</Link>
+                {
+                    user && user.uid ? <><Link className="font-semibold hover:text-lime-600" onClick={handleLogOut}>Add Service</Link> <Link className="font-semibold mx-5 hover:text-lime-600" onClick={handleLogOut}>My Reviews</Link>  <Link className="font-semibold hover:text-lime-600" onClick={handleLogOut}>Logout</Link> </>  : <Link className="font-semibold hover:text-lime-600" to='/login'>Login</Link> 
+                }
+
             </div>
         </div>
     );
