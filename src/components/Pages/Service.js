@@ -36,7 +36,7 @@ const Service = () => {
                     }
                 </div>
                 <div className='text-center my-8'>
-                    <Link to='/service' className='bg-green-500 text-white font-medium py-2 px-10' onClick={handleLoadMore}>View More</Link>
+                    <Link to='/service' className='bg-green-500 rounded-lg text-white font-medium py-2 px-10 hover:bg-green-700' onClick={handleLoadMore}>View More</Link>
                 </div>
             </div>
         </div>
