@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 import ServiceFoodCard from './ServiceFoodCard';
 
 const ServicesFood = () => {
+    
+    const [foods, setFoods] = useState([])
 
-    const [foods, setFoods] = useState([]);
-    console.log(foods);
-    useEffect( () => {
-        fetch('http://localhost:5000/foods')
-            .then(res => res.json())
-            .then(data => setFoods(data.foods))
-    }, [])
+    useEffect(()=>{
+        fetch('http://localhost:5000/foods?limit=3')
+        .then(res => res.json())
+        .then(data => setFoods(data))
+    },[])
 
     return (
         <div>
@@ -21,6 +22,9 @@ const ServicesFood = () => {
                     foods.map(food => <ServiceFoodCard food={food} key={food._id}></ServiceFoodCard>)
                 }
 
+            </div>
+            <div className='text-center my-10'>
+                <Link to='/all-foods' className='btn btn-primary'>See More</Link>
             </div>
         </div>
     );

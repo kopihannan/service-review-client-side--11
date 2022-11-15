@@ -12,15 +12,15 @@ const Header = () => {
                         </label>
                         <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li><Link to='/' className='font-semibold rounded-md text-[#ff6600]'>Home</Link></li>
-                            <li><Link>Item 3</Link></li>
+                            <li><Link to='/all-foods' className='font-semibold rounded-md text-[#ff6600]'>Service</Link></li>
                         </ul>
                     </div>
-                    <Link className="btn btn-ghost normal-case text-xl font-bold text-[#00829c]">Food Forest.</Link>
+                    <Link to='/' className="btn btn-ghost normal-case text-xl font-bold text-[#00829c]">Food Forest.</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0">
                         <li><Link to='/' className='font-semibold rounded-md text-[#ff6600]'>Home</Link></li>
-                        <li><Link>Item 3</Link></li>
+                        <li><Link to='/all-foods' className='font-semibold rounded-md text-[#ff6600]'>Service</Link></li>
                     </ul>
                 </div>
                 <div className="navbar-end">
