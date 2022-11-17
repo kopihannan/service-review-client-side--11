@@ -8,7 +8,7 @@ const PrivateRoute = ({children}) => {
     const location = useLocation()
     console.log(loading)
     if (loading) {
-      return <SpinnerCircular />
+      return <div className='text-center'><SpinnerCircular/></div>
     }
   
     if (!user) {

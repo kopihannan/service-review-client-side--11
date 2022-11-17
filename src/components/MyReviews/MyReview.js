@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import MyReviewsCard from './MyReviewsCard';
 
@@ -17,6 +18,7 @@ const MyReview = () => {
     const handleDelete = (id) => {
         const confirm = window.confirm("Are you sure you want to delete your review?");
         if (confirm) {
+            toast.success("Delete Success")
             fetch(`http://localhost:5000/reviews/${id}`, {
                 method: 'DELETE'
             })
@@ -43,7 +45,7 @@ const MyReview = () => {
                         </tr>
                     </thead>
                     <tbody>
-
+                        <ToastContainer/>
                         {
                             myReviews.length > 0 ? myReviews.map(myReview => <MyReviewsCard myReview={myReview} key={myReview._id} handleDelete={handleDelete}></MyReviewsCard>) : <div className='text-center py-28'>
                                 <p className='font-bold text-red-500 text-4xl'>Review Not Found</p>

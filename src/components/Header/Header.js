@@ -39,7 +39,7 @@ const Header = () => {
                                 <>  
                                 
                                     <Link to='/my-review' className='font-bold text-orange-600 hover:text-orange-700'>My Reviews</Link>
-                                    <Link className='font-bold text-orange-600 hover:text-orange-700 mx-5'>Add Service</Link>
+                                    <Link to='/add-review' className='font-bold text-orange-600 hover:text-orange-700 mx-5'>Add Service</Link>
                                     <Link className='font-bold text-orange-600 hover:text-orange-700 mr-5' variant="light" onClick={handleLogOut}>Log Out</Link>
                                     <Link>
                                         {user?.photoURL ?
