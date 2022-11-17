@@ -25,7 +25,7 @@ const ServiceDetails = () => {
             const message = form.message.value;
             const email = user?.email || "Not Found Email";
             const name = user?.displayName || "no name";
-            const image = user?.photoURL || "not found image"
+            const userImg = user?.photoURL || "not found image";
             toast.success("Succesfully you added review")
             form.reset();
 
@@ -35,7 +35,8 @@ const ServiceDetails = () => {
                 message,
                 email,
                 name,
-                image
+                userImg,
+                foodImg: image,
 
             }
 
@@ -87,7 +88,7 @@ const ServiceDetails = () => {
                             <div className='flex items-center'>
                                 <div className="avatar">
                                     <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                                        <img src={review.image} alt='' />
+                                        <img src={review.userImg} alt='' />
                                     </div>
                                 </div>
                                 <h2 className='ml-5 font-semibold text-xl'>{review.name}</h2>
