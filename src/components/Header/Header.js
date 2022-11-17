@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { FaUser } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
+    console.log(user);
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(error => console.error(error))
+    }
     return (
         <div>
             <div className="navbar bg-gray-50 shadow-md">
@@ -24,7 +33,34 @@ const Header = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <Link className=' btn-outline py-2 px-8 rounded-md border-none font-semibold'>Login</Link>
+                    <>
+                        {
+                            user?
+                                <>  
+                                
+                                    <Link className='font-bold text-orange-600 hover:text-orange-700'>My Reviews</Link>
+                                    <Link className='font-bold text-orange-600 hover:text-orange-700 mx-5'>Add Service</Link>
+                                    <Link className='font-bold text-orange-600 hover:text-orange-700 mr-5' variant="light" onClick={handleLogOut}>Log Out</Link>
+                                    <Link>
+                                        {user?.photoURL ?
+                                        <div className="avatar online">
+                                        <div className="w-10 rounded-full">
+                                          <img src={user?.photoURL}  alt=''/>
+                                        </div>
+                                      </div>
+                                            : <FaUser></FaUser>
+                                        }
+                                    </Link>
+                                </>
+                                :
+                                <>
+                                    <Link className='btn' to='/login'>Login</Link>
+                                </>
+                        }
+
+
+                    </>
+
                 </div>
             </div>
         </div>
