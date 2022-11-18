@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -5,9 +6,10 @@ import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const Login = () => {
 
-    const { signIn, setLoading } = useContext(AuthContext);
+    const { signIn, setLoading, googleProviderLogin } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const provider = new GoogleAuthProvider();
     const from = location.state?.from?.pathname || '/';
 
     const handleSubmit = event => {
@@ -15,20 +17,39 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+        form.reset();
         console.log(email, password);
 
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                console.log(user);
-                form.reset();
-                toast.success('Successfully Login')
-                if (user) {
-                    navigate(from, { replace: true });
+                //jwt token
+
+                const currentUser = {
+                    email: user.email
                 }
-                else {
-                     
-                }
+
+                fetch('http://localhost:5000/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
+                })
+                    .then(rel => rel.json())
+                    .then(data => {
+                        console.log(data);
+                        toast.success('Successfully Login');
+                        localStorage.setItem('food-token', data.token);
+                        if (user) {
+                            navigate(from, { replace: true });
+                        }
+                        else {
+
+                        }
+                    })
+
+
             })
             .catch(error => {
                 console.error(error)
@@ -36,6 +57,19 @@ const Login = () => {
             .finally(() => {
                 setLoading(false);
             })
+    }
+
+    //Google provider
+
+    const handleGoogle = () => {
+        googleProviderLogin(provider)
+            .then((result) => {
+                console.log(result.user);
+                toast.success("successfull create an accout");
+                navigate('/')
+            }).catch((error) => {
+                console.error(error)
+            });
     }
 
     return (
@@ -61,7 +95,7 @@ const Login = () => {
                             </div>
                             <div className="flex flex-col w-full border-opacity-50">
                                 <div className="divider">OR</div>
-                                <Link className='btn btn-outline mb-3'>Google</Link>
+                                <Link onClick={handleGoogle} className='btn btn-outline mb-3'>Google</Link>
                                 <Link className='btn btn-outline'>Github</Link>
                             </div>
                         </form>

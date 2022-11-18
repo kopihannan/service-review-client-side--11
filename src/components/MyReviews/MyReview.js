@@ -4,26 +4,47 @@ import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import MyReviewsCard from './MyReviewsCard';
 
 const MyReview = () => {
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [myReviews, setMyReviews] = useState([]);
 
 
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`)
-            .then(rel => rel.json())
-            .then(data => setMyReviews(data))
-    }, [user?.email, myReviews])
+        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('food-token')}`
+            }
+        })
+            .then(res => {
+                if (res.status === 401 || res.status === 403) {
+                    return logOut();
+                }
+                return res.json();
+            })
+            .then(data => {
+                setMyReviews(data);
+            })
+    }, [user?.email, logOut])
 
     const handleDelete = (id) => {
         const confirm = window.confirm("Are you sure you want to delete your review?");
         if (confirm) {
-            toast.success("Delete Success")
+
             fetch(`http://localhost:5000/reviews/${id}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('food-token')}`
+                }
             })
                 .then(res => res.json())
-                .then(data => console.log(data))
+                .then(data => {
+                    console.log(data);
+                    if (data.deletedCount > 0) {
+                        toast.success("Delete Success")
+                        const remaining = myReviews.filter(odr => odr._id !== id);
+                        setMyReviews(remaining);
+                    }
+                })
         }
     }
 
@@ -45,7 +66,7 @@ const MyReview = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <ToastContainer/>
+                        <ToastContainer />
                         {
                             myReviews.length > 0 ? myReviews.map(myReview => <MyReviewsCard myReview={myReview} key={myReview._id} handleDelete={handleDelete}></MyReviewsCard>) : <div className='text-center py-28'>
                                 <p className='font-bold text-red-500 text-4xl'>Review Not Found</p>

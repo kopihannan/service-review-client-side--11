@@ -1,10 +1,14 @@
+import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
 const Register = () => {
-    const { createUser, updateUserProfile } = useContext(AuthContext);
+    const { createUser, updateUserProfile, googleProviderLogin } = useContext(AuthContext);
+    const navigate = useNavigate()
+
+    const provider = new GoogleAuthProvider();
 
     const handleSubmit = event => {
         event.preventDefault();
@@ -20,10 +24,24 @@ const Register = () => {
                 const user = result.user;
                 console.log(user);
                 form.reset();
+                toast.success("Successfull Create account")
                 handleUpdateUserProfile(name, photoURL);
+                navigate('/')
             })
             .catch(e => {
                 console.error(e);
+            });
+
+    }
+
+    const handleProviderGoogle = () => {
+        googleProviderLogin(provider)
+            .then((result) => {
+                console.log(result.user);
+                toast.success("successfull create an accout");
+                navigate('/')
+            }).catch((error) => {
+                console.error(error)
             });
     }
 
@@ -64,13 +82,13 @@ const Register = () => {
                             </div>
                             <div className='text-center'>
                                 <label className="label text-green-600">
-                                    
+
                                     <Link to='/login' className="label-text-alt link link-hover text-green-600">Have an Account? Login</Link>
                                 </label>
                             </div>
                             <div className="flex flex-col w-full border-opacity-50">
                                 <div className="divider">OR</div>
-                                <Link className='btn btn-outline mb-3'>Google</Link>
+                                <Link onClick={handleProviderGoogle} className='btn btn-outline mb-3'>Google</Link>
                                 <Link className='btn btn-outline'>Github</Link>
                             </div>
                         </form>
