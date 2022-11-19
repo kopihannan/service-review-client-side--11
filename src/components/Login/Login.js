@@ -29,7 +29,7 @@ const Login = () => {
                     email: user.email
                 }
 
-                fetch('http://localhost:5000/user', {
+                fetch('https://server-side-nu-jade.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -63,11 +63,37 @@ const Login = () => {
 
     const handleGoogle = () => {
         googleProviderLogin(provider)
-            .then((result) => {
-                console.log(result.user);
-                toast.success("successfull create an accout");
-                navigate('/')
-            }).catch((error) => {
+        .then(result => {
+            const user = result.user;
+            //jwt token
+
+            const currentUser = {
+                email: user.email
+            }
+
+            fetch('https://server-side-nu-jade.vercel.app/user', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(currentUser)
+            })
+                .then(rel => rel.json())
+                .then(data => {
+                    console.log(data);
+                    toast.success('Successfully Login');
+                    localStorage.setItem('food-token', data.token);
+                    if (user) {
+                        navigate(from, { replace: true });
+                    }
+                    else {
+
+                    }
+                })
+
+
+        })
+            .catch((error) => {
                 console.error(error)
             });
     }

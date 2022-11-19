@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { PhotoProvider } from 'react-photo-view';
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ServiceFoodCard from './ServiceFoodCard';
 
 
@@ -9,7 +9,7 @@ const ServicesFood = () => {
     const [foods, setFoods] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:5000/foods?limit=3')
+        fetch('https://server-side-nu-jade.vercel.app/foods?limit=3')
             .then(res => res.json())
             .then(data => setFoods(data))
     }, [])

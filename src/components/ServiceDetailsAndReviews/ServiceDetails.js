@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
@@ -11,7 +11,7 @@ const ServiceDetails = () => {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?service=${_id}`,{
+        fetch(`https://server-side-nu-jade.vercel.app/reviews?service=${_id}`,{
             headers: {
                 authorization: `Bearer ${localStorage.getItem('food-token')}`
             }
@@ -48,7 +48,7 @@ const ServiceDetails = () => {
 
             }
 
-            fetch('http://localhost:5000/reviews', {
+            fetch('https://server-side-nu-jade.vercel.app/reviews', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
@@ -69,13 +69,14 @@ const ServiceDetails = () => {
 
         }
         else {
-            setError("Please Login First")
+            setError("Please Login First");
+            toast.error("Unsuccessfully Please Login")
         }
     }
 
     return (
-        <div className='flex justify-between  py-14 '>
-            <div className='w-1/2 px-9'>
+        <div className='text-center lg:flex lg:justify-between md:flex md:justify-between py-14 '>
+            <div className='lg:w-1/2 px-9 md:w-1/2 w-full'>
                 <img className='rounded' src={image} alt="" />
                 <h2 className='text-3xl font-bold pt-6'>{title}</h2>
                 <p className='font-medium py-4 text-justify'>{description}</p>
@@ -89,7 +90,6 @@ const ServiceDetails = () => {
                                 name="message" required className="textarea textarea-bordered w-full" placeholder="Type Your Review"></textarea>
                         </div>
                         <div className="">
-                            <ToastContainer />
                             <button className="btn btn-accent mt-4 w-full">Submit</button>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ const ServiceDetails = () => {
 
             </div>
 
-            <div className='w-1/2'>
+            <div className='lg:w-1/2 md:w-1/2 w-full'>
                 {
                     reviews.map(review => <div key={review._id}>
 

@@ -7,10 +7,8 @@ const MyReview = () => {
     const { user, logOut } = useContext(AuthContext);
     const [myReviews, setMyReviews] = useState([]);
 
-
-
     useEffect(() => {
-        fetch(`http://localhost:5000/reviews?email=${user?.email}`, {
+        fetch(`https://server-side-nu-jade.vercel.app/reviews?email=${user?.email}`, {
             headers: {
                 authorization: `Bearer ${localStorage.getItem('food-token')}`
             }
@@ -30,7 +28,7 @@ const MyReview = () => {
         const confirm = window.confirm("Are you sure you want to delete your review?");
         if (confirm) {
 
-            fetch(`http://localhost:5000/reviews/${id}`, {
+            fetch(`https://server-side-nu-jade.vercel.app/reviews/${id}`, {
                 method: 'DELETE',
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('food-token')}`
@@ -40,7 +38,6 @@ const MyReview = () => {
                 .then(data => {
                     console.log(data);
                     if (data.deletedCount > 0) {
-                        toast.success("Delete Success")
                         const remaining = myReviews.filter(odr => odr._id !== id);
                         setMyReviews(remaining);
                     }
@@ -50,7 +47,7 @@ const MyReview = () => {
 
 
     return (
-        <div>
+        <div className='my-10'>
             <div className="overflow-x-auto w-full">
                 <table className="table w-full">
 
@@ -60,9 +57,8 @@ const MyReview = () => {
                                 REMOVE
                             </th>
                             <th>Image & Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
-                            <th></th>
+                            <th>Review</th>
+                            <th>Edit</th>
                         </tr>
                     </thead>
                     <tbody>

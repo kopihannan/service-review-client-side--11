@@ -21,7 +21,7 @@ const AddReview = () => {
 
             }
 
-            fetch('http://localhost:5000/foods', {
+            fetch('https://server-side-nu-jade.vercel.app/foods', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json'
@@ -32,7 +32,7 @@ const AddReview = () => {
     }
 
     return (
-        <div className='w-1/3 mx-auto'>
+        <div className='w-full md:w-1/2 lg:w-1/3 mx-auto'>
             <form onSubmit={handleAddFood} className='my-10 bg-slate-50 p-10 rounded-md shadow'>
                 <input type="text" required name='title' placeholder="Food Name" className="input input-bordered w-full mb-4" /> <br/>
                 <input type="number" required name='price' placeholder="Price" className="input input-bordered w-full mb-4" /> <br/>

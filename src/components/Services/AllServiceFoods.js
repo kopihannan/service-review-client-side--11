@@ -6,7 +6,7 @@ const AllServiceFoods = () => {
     const [allfoods, setAllFoods] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/foods')
+        fetch('https://server-side-nu-jade.vercel.app/foods')
             .then(res => res.json())
             .then(data => setAllFoods(data))
     }, [])
