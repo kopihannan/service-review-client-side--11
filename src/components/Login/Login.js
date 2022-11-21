@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
+import google from '../../assets/images/google.png'
 
 const Login = () => {
 
@@ -63,36 +64,36 @@ const Login = () => {
 
     const handleGoogle = () => {
         googleProviderLogin(provider)
-        .then(result => {
-            const user = result.user;
-            //jwt token
+            .then(result => {
+                const user = result.user;
+                //jwt token
 
-            const currentUser = {
-                email: user.email
-            }
+                const currentUser = {
+                    email: user.email
+                }
 
-            fetch('https://server-side-nu-jade.vercel.app/user', {
-                method: 'POST',
-                headers: {
-                    'content-type': 'application/json'
-                },
-                body: JSON.stringify(currentUser)
-            })
-                .then(rel => rel.json())
-                .then(data => {
-                    console.log(data);
-                    toast.success('Successfully Login');
-                    localStorage.setItem('food-token', data.token);
-                    if (user) {
-                        navigate(from, { replace: true });
-                    }
-                    else {
-
-                    }
+                fetch('https://server-side-nu-jade.vercel.app/user', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(currentUser)
                 })
+                    .then(rel => rel.json())
+                    .then(data => {
+                        console.log(data);
+                        toast.success('Successfully Login');
+                        localStorage.setItem('food-token', data.token);
+                        if (user) {
+                            navigate(from, { replace: true });
+                        }
+                        else {
+
+                        }
+                    })
 
 
-        })
+            })
             .catch((error) => {
                 console.error(error)
             });
@@ -105,10 +106,10 @@ const Login = () => {
                     <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
                         <form onSubmit={handleSubmit} className="card-body">
                             <div className="form-control">
-                                <input type="text" placeholder="email" name='email' className="input input-bordered" />
+                                <input type="email" required placeholder="email" name='email' className="input input-bordered" />
                             </div>
                             <div className="form-control">
-                                <input type="text" name='password' placeholder="password" className="input input-bordered" />
+                                <input type="password" required name='password' placeholder="password" className="input input-bordered" />
                             </div>
                             <div className="form-control mt-1">
                                 <button type='submit' className="btn btn-primary">Login</button>
@@ -121,8 +122,10 @@ const Login = () => {
                             </div>
                             <div className="flex flex-col w-full border-opacity-50">
                                 <div className="divider">OR</div>
-                                <Link onClick={handleGoogle} className='btn btn-outline mb-3'>Google</Link>
-                                <Link className='btn btn-outline'>Github</Link>
+                                <div  onClick={handleGoogle} className='btn btn-outline mb-3 flex'>
+                                    <Link className='font-bold'>continue  with </Link>
+                                    <img className='w-6 ml-2' src={google} alt=""/>
+                                </div>
                             </div>
                         </form>
                     </div>

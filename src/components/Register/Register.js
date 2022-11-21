@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
+import google from '../../assets/images/google.png'
 
 const Register = () => {
     const { createUser, updateUserProfile, googleProviderLogin } = useContext(AuthContext);
@@ -65,13 +66,13 @@ const Register = () => {
                     <div className="card flex-shrink-0 w-full shadow-2xl bg-base-100">
                         <form onSubmit={handleSubmit} className="card-body">
                             <div className="form-control">
-                                <input type="text" placeholder="Name" name='name' className="input input-bordered" />
+                                <input type="text" required placeholder="Name" name='name' className="input input-bordered" />
                             </div>
                             <div className="form-control">
-                                <input type="email" placeholder="email" name='email' className="input input-bordered" />
+                                <input required type="email" placeholder="email" name='email' className="input input-bordered" />
                             </div>
                             <div className="form-control">
-                                <input type="password" name='password' placeholder="password" className="input input-bordered" />
+                                <input required type="password" name='password' placeholder="password" className="input input-bordered" />
                             </div>
                             <div className="form-control">
                                 <input type="text" placeholder="Image URL" name='photoURL' className="input input-bordered" />
@@ -88,8 +89,10 @@ const Register = () => {
                             </div>
                             <div className="flex flex-col w-full border-opacity-50">
                                 <div className="divider">OR</div>
-                                <Link onClick={handleProviderGoogle} className='btn btn-outline mb-3'>Google</Link>
-                                <Link className='btn btn-outline'>Github</Link>
+                                <div  onClick={handleProviderGoogle} className='btn btn-outline mb-3 flex'>
+                                    <Link className='font-bold'>continue  with </Link>
+                                    <img className='w-6 ml-2' src={google} alt=""/>
+                                </div>
                             </div>
                         </form>
                     </div>
