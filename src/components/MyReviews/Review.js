@@ -1,10 +1,9 @@
 import React from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const Review = () => {
     const { _id } = useLoaderData()
-
     const handleSubmit = e => {
         e.preventDefault();
 
@@ -16,11 +15,10 @@ const Review = () => {
         }
 
         // console.log(user);
-        fetch(`https://server-side-nu-jade.vercel.app/reviews/${_id}`, {
+        fetch(`https://foods-seven.vercel.app/reviews/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json',
-                authorization: `Bearer ${localStorage.getItem('food-token')}`
             },
             body: JSON.stringify(review)
         })

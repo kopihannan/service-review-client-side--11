@@ -1,9 +1,10 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import google from '../../assets/images/google.png'
+import JwtAuth from '../JwtAuth/JwtAuth';
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -24,13 +25,13 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const user = result.user;
-                //jwt token
-
+                 //jwt token
+                JwtAuth(user)
                 const currentUser = {
                     email: user.email
                 }
 
-                fetch('https://server-side-nu-jade.vercel.app/user', {
+                fetch('https://foods-seven.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -41,7 +42,6 @@ const Login = () => {
                     .then(data => {
                         console.log(data);
                         toast.success('Successfully Login');
-                        localStorage.setItem('food-token', data.token);
                         if (user) {
                             navigate(from, { replace: true });
                         }
@@ -54,6 +54,7 @@ const Login = () => {
             })
             .catch(error => {
                 console.error(error)
+                toast.error(error.message)
             })
             .finally(() => {
                 setLoading(false);
@@ -67,12 +68,12 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 //jwt token
-
+                JwtAuth(user)
                 const currentUser = {
                     email: user.email
                 }
 
-                fetch('https://server-side-nu-jade.vercel.app/user', {
+                fetch('https://foods-seven.vercel.app/user', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
@@ -83,7 +84,6 @@ const Login = () => {
                     .then(data => {
                         console.log(data);
                         toast.success('Successfully Login');
-                        localStorage.setItem('food-token', data.token);
                         if (user) {
                             navigate(from, { replace: true });
                         }
@@ -113,7 +113,6 @@ const Login = () => {
                             </div>
                             <div className="form-control mt-1">
                                 <button type='submit' className="btn btn-primary">Login</button>
-                                <ToastContainer />
                             </div>
                             <div className='text-center'>
                                 <label className="label">

@@ -9,7 +9,7 @@ const ServicesFood = () => {
     const [foods, setFoods] = useState([])
 
     useEffect(() => {
-        fetch('https://server-side-nu-jade.vercel.app/foods?limit=3')
+        fetch('https://foods-seven.vercel.app/foods?limit=3')
             .then(res => res.json())
             .then(data => setFoods(data))
     }, [])

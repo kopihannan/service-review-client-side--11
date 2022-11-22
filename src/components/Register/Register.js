@@ -1,9 +1,10 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import google from '../../assets/images/google.png'
+import JwtAuth from '../JwtAuth/JwtAuth';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const { createUser, updateUserProfile, googleProviderLogin } = useContext(AuthContext);
@@ -23,6 +24,7 @@ const Register = () => {
         createUser(email, password)
             .then(result => {
                 const user = result.user;
+                JwtAuth(user)
                 console.log(user);
                 form.reset();
                 toast.success("Successfull Create account")
@@ -38,7 +40,8 @@ const Register = () => {
     const handleProviderGoogle = () => {
         googleProviderLogin(provider)
             .then((result) => {
-                console.log(result.user);
+                const user = result.user;
+                JwtAuth(user)
                 toast.success("successfull create an accout");
                 navigate('/')
             }).catch((error) => {
@@ -79,7 +82,7 @@ const Register = () => {
                             </div>
                             <div className="form-control mt-1">
                                 <button type='submit' className="btn btn-warning">Register</button>
-                                <ToastContainer />
+                
                             </div>
                             <div className='text-center'>
                                 <label className="label text-green-600">

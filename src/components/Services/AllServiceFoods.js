@@ -4,9 +4,10 @@ import ServiceFoodCard from './ServiceFoodCard';
 
 const AllServiceFoods = () => {
     const [allfoods, setAllFoods] = useState([]);
+    console.log(allfoods);
 
     useEffect(() => {
-        fetch('https://server-side-nu-jade.vercel.app/foods')
+        fetch('https://foods-seven.vercel.app/foods')
             .then(res => res.json())
             .then(data => setAllFoods(data))
     }, [])

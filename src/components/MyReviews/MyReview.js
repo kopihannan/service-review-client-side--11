@@ -1,18 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 import MyReviewsCard from './MyReviewsCard';
+import toast from 'react-hot-toast';
 
 const MyReview = () => {
     const { user, logOut } = useContext(AuthContext);
     const [myReviews, setMyReviews] = useState([]);
 
     useEffect(() => {
-        fetch(`https://server-side-nu-jade.vercel.app/reviews?email=${user?.email}`, {
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('food-token')}`
-            }
-        })
+        fetch(`https://foods-seven.vercel.app/reviews?email=${user?.email}`)
             .then(res => {
                 if (res.status === 401 || res.status === 403) {
                     return logOut();
@@ -28,11 +24,9 @@ const MyReview = () => {
         const confirm = window.confirm("Are you sure you want to delete your review?");
         if (confirm) {
 
-            fetch(`https://server-side-nu-jade.vercel.app/reviews/${id}`, {
+            fetch(`https://foods-seven.vercel.app/reviews/${id}`, {
                 method: 'DELETE',
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('food-token')}`
-                }
+                
             })
                 .then(res => res.json())
                 .then(data => {
@@ -62,7 +56,6 @@ const MyReview = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        <ToastContainer />
                         {
                             myReviews.length > 0 ? myReviews.map(myReview => <MyReviewsCard myReview={myReview} key={myReview._id} handleDelete={handleDelete}></MyReviewsCard>) : <div className='text-center py-28'>
                                 <p className='font-bold text-red-500 text-4xl'>Review Not Found</p>

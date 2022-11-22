@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthContext } from '../context/AuthProvider/AuthProvider';
 
@@ -11,11 +11,7 @@ const ServiceDetails = () => {
     const [reviews, setReviews] = useState([])
 
     useEffect(() => {
-        fetch(`https://server-side-nu-jade.vercel.app/reviews?service=${_id}`,{
-            headers: {
-                authorization: `Bearer ${localStorage.getItem('food-token')}`
-            }
-        })
+        fetch(`https://foods-seven.vercel.app/reviews?service=${_id}`)
         .then(res => {
             if (res.status === 401 || res.status === 403) {
                 return logOut();
@@ -48,11 +44,10 @@ const ServiceDetails = () => {
 
             }
 
-            fetch('https://server-side-nu-jade.vercel.app/reviews', {
+            fetch('https://foods-seven.vercel.app/reviews', {
                 method: 'POST',
                 headers: {
                     'content-type': 'application/json',
-                    authorization: `Bearer ${localStorage.getItem('food-token')}`
                 },
                 body: JSON.stringify(review)
             })

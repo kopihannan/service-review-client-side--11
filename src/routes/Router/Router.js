@@ -18,7 +18,6 @@ const { default: Main } = require("../../components/Main/Main");
 const router = createBrowserRouter([
     {
         path: '/', element: <Main></Main>,
-        errorElement: <Error></Error>,
         children: [
             { path: '/', element: <Home></Home> },
             { path: '/foods', element: <ServicesFood></ServicesFood> },
@@ -32,17 +31,13 @@ const router = createBrowserRouter([
             {
                 path: '/food-details/:id', element: <ServiceDetails></ServiceDetails>,
                 loader: async ({ params }) => {
-                    return fetch(`https://server-side-nu-jade.vercel.app/foods/${params.id}`);
+                    return fetch(`https://foods-seven.vercel.app/foods/${params.id}`);
                 },
             },
             {
                 path: '/review/:id', element: <PrivateRoute><Review></Review></PrivateRoute>,
                 loader: async ({ params }) => {
-                    return fetch(`https://server-side-nu-jade.vercel.app/reviews/${params.id}`,{
-                        headers: {
-                            authorization: `Bearer ${localStorage.getItem('food-token')}`
-                        }
-                    });
+                    return fetch(`https://foods-seven.vercel.app/reviews/${params.id}`);
                 },
             }
         ]
